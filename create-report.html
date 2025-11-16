@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signaler un incident - PeaceConnect</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="index.html" class="navbar-brand">
+                    <span>🕊️</span>
+                    <span>PeaceConnect</span>
+                </a>
+                <button class="navbar-toggle" aria-label="Menu">☰</button>
+                <ul class="navbar-menu">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="forum.html">Forum</a></li>
+                    <li><a href="events.html">Événements</a></li>
+                    <li><a href="create-report.html" class="active">Signaler</a></li>
+                    <li><a href="dashboard.php" class="btn btn-outline">Admin</a></li>
+                    <li><a href="profile.html">Mon Profil</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Formulaire de signalement multi-étapes -->
+    <section class="section">
+        <div class="container" style="max-width: 800px;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title" style="text-align: center;">Signaler un incident</h1>
+                    <p style="text-align: center; color: var(--color-text-light);">
+                        Votre signalement est confidentiel et sera traité avec la plus grande attention
+                    </p>
+                </div>
+
+                <!-- Barre de progression -->
+                <div class="progress" style="margin: 2rem 0;">
+                    <div class="progress-bar" style="width: 33%;"></div>
+                </div>
+
+                <form class="multi-step-form" data-validate id="reportForm">
+                    <!-- Étape 1: Type d'incident -->
+                    <div class="form-step active">
+                        <h2 style="margin-bottom: 1.5rem;">Étape 1 : Type d'incident</h2>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Quel type d'incident souhaitez-vous signaler ? *</label>
+                            <div class="form-check">
+                                <input type="radio" id="typeViolence" name="incidentType" value="violence">
+                                <label for="typeViolence" class="form-check-label">
+                                    <strong>Violence</strong> - Agression physique, verbale ou psychologique
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="typeDiscrimination" name="incidentType" value="discrimination">
+                                <label for="typeDiscrimination" class="form-check-label">
+                                    <strong>Discrimination</strong> - Traitement inégal basé sur l'origine, le genre, la religion, etc.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="typeHarassment" name="incidentType" value="harassment">
+                                <label for="typeHarassment" class="form-check-label">
+                                    <strong>Harcèlement</strong> - Comportements répétés et non désirés
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="typeOther" name="incidentType" value="other">
+                                <label for="typeOther" class="form-check-label">
+                                    <strong>Autre</strong> - Autre type d'incident
+                                </label>
+                            </div>
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Quel est votre rôle dans cet incident ? *</label>
+                            <div class="form-check">
+                                <input type="radio" id="roleVictim" name="role" value="victim">
+                                <label for="roleVictim" class="form-check-label">Je suis la victime</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="roleWitness" name="role" value="witness">
+                                <label for="roleWitness" class="form-check-label">Je suis témoin</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="roleThirdParty" name="role" value="third-party">
+                                <label for="roleThirdParty" class="form-check-label">Je signale pour quelqu'un d'autre</label>
+                            </div>
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" data-next-step>Suivant</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2: Détails de l'incident -->
+                    <div class="form-step">
+                        <h2 style="margin-bottom: 1.5rem;">Étape 2 : Détails de l'incident</h2>
+                        
+                        <div class="form-group">
+                            <label for="incidentDate" class="form-label">Date de l'incident *</label>
+                            <input type="text" id="incidentDate" name="incidentDate" class="form-control">
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="incidentTime" class="form-label">Heure approximative</label>
+                            <input type="time" id="incidentTime" name="incidentTime" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="incidentLocation" class="form-label">Lieu de l'incident *</label>
+                            <input type="text" id="incidentLocation" name="incidentLocation" class="form-control" placeholder="Adresse, ville, lieu précis...">
+                            <span class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="incidentDescription" class="form-label">Description détaillée *</label>
+                            <textarea id="incidentDescription" name="incidentDescription" class="form-control" rows="6" placeholder="Décrivez l'incident en détail, ce qui s'est passé, les personnes impliquées, etc."></textarea>
+                            <span class="form-error"></span>
+                            <span class="form-help">Plus de détails aideront à mieux traiter votre signalement</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Y a-t-il eu des témoins ?</label>
+                            <div class="form-check">
+                                <input type="radio" id="witnessesYes" name="witnesses" value="yes">
+                                <label for="witnessesYes" class="form-check-label">Oui</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="witnessesNo" name="witnesses" value="no">
+                                <label for="witnessesNo" class="form-check-label">Non</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="witnessesUnknown" name="witnesses" value="unknown">
+                                <label for="witnessesUnknown" class="form-check-label">Je ne sais pas</label>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" data-prev-step>Précédent</button>
+                            <button type="button" class="btn btn-primary" data-next-step>Suivant</button>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3: Informations supplémentaires -->
+                    <div class="form-step">
+                        <h2 style="margin-bottom: 1.5rem;">Étape 3 : Informations supplémentaires</h2>
+                        
+                        <div class="form-group">
+                            <label for="evidence" class="form-label">Preuves ou documents</label>
+                            <input type="file" id="evidence" name="evidence" class="form-control" multiple accept="image/*,video/*,.pdf">
+                            <span class="form-help">Vous pouvez joindre des photos, vidéos ou documents (max 10 Mo par fichier)</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Avez-vous déjà signalé cet incident ailleurs ?</label>
+                            <div class="form-check">
+                                <input type="checkbox" id="reportedPolice" name="reportedTo" value="police">
+                                <label for="reportedPolice" class="form-check-label">Police / Gendarmerie</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="reportedAssociation" name="reportedTo" value="association">
+                                <label for="reportedAssociation" class="form-check-label">Association</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="reportedOther" name="reportedTo" value="other">
+                                <label for="reportedOther" class="form-check-label">Autre</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="reportedNone" name="reportedTo" value="none">
+                                <label for="reportedNone" class="form-check-label">Non, c'est la première fois</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactPreference" class="form-label">Préférence de contact</label>
+                            <select id="contactPreference" name="contactPreference" class="form-control">
+                                <option value="email">Par email</option>
+                                <option value="phone">Par téléphone</option>
+                                <option value="both">Email et téléphone</option>
+                                <option value="none">Je ne souhaite pas être contacté</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalInfo" class="form-label">Informations complémentaires</label>
+                            <textarea id="additionalInfo" name="additionalInfo" class="form-control" rows="4" placeholder="Toute autre information que vous jugez pertinente..."></textarea>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>Confidentialité :</strong> Votre signalement est traité de manière confidentielle. Vos informations personnelles ne seront partagées qu'avec votre consentement explicite.
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem;">
+                            <button type="button" class="btn btn-outline" data-prev-step>Précédent</button>
+                            <button type="submit" class="btn btn-primary">Envoyer le signalement</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-text); color: white; padding: 2rem 0; margin-top: 4rem;">
+        <div class="container">
+            <div style="text-align: center;">
+                <p style="margin-bottom: 1rem;">&copy; 2024 PeaceConnect. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Mise à jour de la barre de progression
+        const formSteps = document.querySelectorAll('.form-step');
+        const progressBar = document.querySelector('.progress-bar');
+        
+        function updateProgress() {
+            const activeStep = document.querySelector('.form-step.active');
+            if (activeStep) {
+                const stepIndex = Array.from(formSteps).indexOf(activeStep);
+                const progress = ((stepIndex + 1) / formSteps.length) * 100;
+                progressBar.style.width = progress + '%';
+            }
+        }
+
+        // Écouter les changements d'étapes
+        const nextButtons = document.querySelectorAll('[data-next-step]');
+        const prevButtons = document.querySelectorAll('[data-prev-step]');
+        
+        nextButtons.forEach(btn => {
+            btn.addEventListener('click', updateProgress);
+        });
+        
+        prevButtons.forEach(btn => {
+            btn.addEventListener('click', updateProgress);
+        });
+
+        // Gestion de la soumission
+        document.getElementById('reportForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast('Signalement envoyé avec succès ! Nous vous contacterons sous peu.', 'success');
+            
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
+
